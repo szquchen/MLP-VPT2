@@ -1,0 +1,6 @@
+#!/bin/bash
+
+python gvpt2.py \
+  --mol_name="C2417905" \
+  --num_modes=21 \
+#  --enable_intensity # comment out this if only fundamental energies are needed

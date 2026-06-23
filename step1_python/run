@@ -1,0 +1,13 @@
+#!/bin/bash
+
+MOL="C2417905"
+
+python force_const_hess.py \
+  --input "${MOL}.inp" \
+  --eps 0.2 \
+  --freq_tol 5.0 \
+  --freq_out "${MOL}_nma.out" \
+  --cub_out "${MOL}_cubics.out" \
+  --quart_out "${MOL}_quartics.out" \
+  --opt_out "${MOL}_opt.out"
+

@@ -1,0 +1,105 @@
+module pes_shell
+  use pes_basis
+  implicit none
+
+  real(kind=8)::coef(49978)
+
+  ! Define the mass of different atoms
+  real(kind=8),parameter::c_mass= 12.0000000  !21874.66
+  real(kind=8),parameter::h_mass=  1.0078250  !1837.15
+  real(kind=8),parameter::d_mass=  2.0141018  !D
+  real(kind=8),parameter::o_mass= 15.9949146  !29156.95
+  real(kind=8),parameter::n_mass= 14.003074
+  real(kind=8),parameter::pi=3.14159265
+
+  ! Define constants
+  real(kind=8),parameter::emass=1822.88848
+  real(kind=8),parameter::auang=0.5291772083
+  real(kind=8),parameter::aucm=219474.6313710
+
+contains
+  !==========================!
+  ! read in the coefficients !
+  !==========================!
+  subroutine pes_init()
+    character(len=90)::path
+    integer::i
+
+    path = "coeff_Aspirin.dat"
+    open(20,file=trim(path),status="old")
+    do i=1,size(coef)
+       read(20,*) coef(i)
+    end do
+    close(20)
+
+    return
+  end subroutine
+
+  !================================!
+  ! calculate the potential energy !
+  !   x(3,15): coordinates in bohr !
+  !================================!
+  function pot(x)
+    real(kind=8)::x(63),xyz(21,3)
+    real(kind=8)::m(11247), p(49978), morse(210)
+    real(kind=8)::pot
+    integer::i
+
+    do i=1,21!end of do should be # of atoms
+       xyz(i,:) = x(3*i-2:3*i)
+    end do
+
+    call get_x(xyz, morse)
+    call evmono(morse, m)
+    call evpoly(m, p)
+    pot = dot_product(coef, p) + 647.261324160815
+
+    return
+  end function
+
+  !================================!
+  ! calculate the gradients        !
+  !   x(3,15): coordinates in bohr !
+  !================================!
+  function gradient(x)
+    real(kind=8)::x(63), xyz(21,3), gradient(63)
+    real(kind=8)::m(11247), p(49978), morse(210)
+    integer::i
+
+    do i=1,21
+       xyz(i,:) = x(3*i-2:3*i)
+    end do
+
+    call get_x(xyz, morse)
+    call evmono(morse, m)
+    call evpoly(m, p)
+    call derivative_reverse(coef,m,p,xyz,gradient)
+
+    return
+  end function
+
+  !=============================!
+  ! Hessian using the gradient  !
+  !=============================!
+  subroutine hessian(x,H)
+    real,dimension(:),intent(in)::x
+    real,dimension(:,:),intent(inout)::H
+    !:::::::::::::::::::::::::::
+    real,dimension(1:size(x))::xt,g_1f,g_1b,g_2f,g_2b
+    real,parameter::eps=0.001
+    integer::ndim,i
+
+    ndim = size(x)
+    do i = 1, ndim
+       xt=x;  xt(i)=xt(i)+2.0*eps;  g_2f=gradient(xt)
+       xt=x;  xt(i)=xt(i)+1.0*eps;  g_1f=gradient(xt)
+       xt=x;  xt(i)=xt(i)-1.0*eps;  g_1b=gradient(xt)
+       xt=x;  xt(i)=xt(i)-2.0*eps;  g_2b=gradient(xt)
+
+       H(:,i) = (-g_2f + 8.0*g_1f - 8.0*g_1b + g_2b) / (12.0*eps)
+    end do
+
+    return
+  end subroutine hessian
+
+end module
