@@ -75,7 +75,7 @@ Copyright [MACE-MDP] is © 2026, [Nils Gönnheimer]
 MACE-MDP is distributed under the **Academic Software License v1.0 (ASL)** for
 academic non-commercial use. See LICENSES/MACE-MDP_LICENSE.md
 
-## Contribution
+## Contributors
 
 Chen Qu: Step1 Fortran
 
