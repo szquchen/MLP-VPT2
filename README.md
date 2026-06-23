@@ -1,5 +1,11 @@
-The VPT2 calculation involves two steps. The first is to obtain the
-cubic and quartic force constants (2 options for this step: Fortran or Python MLPs), and the
+# MLP-VPT2
+
+## About
+The software performs VPT2 calculation for the anharmonic vibrational frequencies using machine-learned potentials.
+
+## Usage
+The VPT2 calculation involves two steps.
+The first is to obtain the cubic and quartic force constants (2 options for this step: Fortran or Python MLPs), and the
 second step is to compute VPT2 energies for fundamentals, as well as
 IR and Raman intensities.
 
@@ -17,8 +23,8 @@ IR and Raman intensities.
 
      (c) Run the executable
          ./vpt2.x {MOLENAME} {N_MODES}
-         For the oxalate example
-         ./vpt2.x oxalate 15
+         For the aspirin example
+         ./vpt2.x aspirin 57
          This executable not only computes QFF constants (written to
          MOLENAME_XXX.out files) but also performs a "standard" VPT2
          calculation, i.e., without considering any resonances. You may
@@ -72,6 +78,7 @@ academic non-commercial use. See LICENSES/MACE-MDP_LICENSE.md
 ## Contribution
 
 Chen Qu: Step1 Fortran
+
 Saikiran Kotaru: Step1 Python and Step2
 
 ## Citation
