@@ -47,7 +47,7 @@ Resonances:
 - Identify Fermi-2: omega_i + omega_j ~ omega_k
 - Deperturb chi denominators when resonance flagged (DVPT2)
 - Build and diagonalize GVPT2 effective Hamiltonians for resonant polyads
-- No Coriolis couplings, no Darling-Dennison resonance.
+- No Darling-Dennison resonance.
 """
 
 import re
