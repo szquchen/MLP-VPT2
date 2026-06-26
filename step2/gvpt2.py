@@ -1053,7 +1053,7 @@ def main():
         print(f"  χ_{i+1:02d}{i+1:02d} = {chi_cm[i][i]: .8f}")
 
     print("\nFundamentals (cm^-1):")
-    print("  mode     Harmonic     VPT2      DVPT2      GVPT2       GVPT2-HOshift       GVPT2-VPT2shift")
+    print("  mode     Harmonic     VPT2      DVPT2      GVPT2       GVPT2-HOshift   GVPT2-VPT2shift")
     for i in range(1, n_modes + 1):
         dv = nu_depert[i - 1]
         vp = nu_vpt2[i - 1]
