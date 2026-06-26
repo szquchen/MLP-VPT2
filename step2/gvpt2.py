@@ -991,7 +991,17 @@ def main():
             i, j = parents
             print(f"  (k={k}, (i,j)=({i},{j}))  |ω_i+ω_j-ω_k|={abs(omega_cm[i-1]+omega_cm[j-1]-omega_cm[k-1]):.3f} cm^-1")
 
-    # 2.5) DVPT2 chi (cm^-1)
+    # 2.5a) Ordinary VPT2 chi: no deperturbation
+    chi_vpt2_cm = compute_chi_deperturbed_cm(
+        omega_cm, phi3_q_cm, phi4_q_cm,
+        rotc, zeta,
+        fermi_set=set(),   # no resonant terms removed
+        v_ind=v_ind
+    )
+
+    nu_vpt2 = fundamentals_from_chi_cm(omega_cm, chi_vpt2_cm)
+    
+    # 2.5b) DVPT2 chi (cm^-1)
     chi_cm = compute_chi_deperturbed_cm(
         omega_cm, phi3_q_cm, phi4_q_cm,
         rotc, zeta,
@@ -1043,12 +1053,13 @@ def main():
         print(f"  χ_{i+1:02d}{i+1:02d} = {chi_cm[i][i]: .8f}")
 
     print("\nFundamentals (cm^-1):")
-    print("  mode     Harmonic     DVPT2      GVPT2       shift")
+    print("  mode     Harmonic     VPT2      DVPT2      GVPT2       GVPT2-HOshift       GVPT2-VPT2shift")
     for i in range(1, n_modes + 1):
         dv = nu_depert[i - 1]
+        vp = nu_vpt2[i - 1]
         gv = nu_gvpt2[i - 1]
         ho = omega_cm[i - 1]
-        print(f"  {i:4d}  {ho:10.4f}  {dv:10.4f}  {gv:10.4f}  {gv-ho:10.4f}")
+        print(f"  {i:4d}  {ho:10.4f}  {vp:10.4f}  {dv:10.4f}  {gv:10.4f}  {gv-ho:10.4f}  {gv-vp:10.4f}")
 
     if state_map:
         print("\nGVPT2 solved state energies (cm^-1) in resonant polyads (includes combo/overtones):")
