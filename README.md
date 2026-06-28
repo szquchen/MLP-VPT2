@@ -1,7 +1,7 @@
 # MLP-VPT2
 
 ## About
-The software performs VPT2 calculation for the anharmonic vibrational frequencies using machine-learned potentials.
+The software performs VPT2 calculation for the anharmonic vibrational frequencies and optionally IR and Raman using machine-learned potentials.
 
 ## Usage
 The VPT2 calculation involves two steps.
