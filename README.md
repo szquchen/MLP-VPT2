@@ -11,14 +11,14 @@ IR and Raman intensities.
 
 ### (1A) MLPs written in Fortran: Get the QFF using analytical gradients (folder step1_fortran)
 
-(a) Modify the template `pes_shell_template.f90` and rename it to `pes_shell.f90`. The three key subroutines/functions need to be implemented are `pes_init()`, `pot(x)`, and `gradient(x)`. An example for a PIP potential of aspirin is given. Then compile the program using the Makefile (with necessary modifications). **Warning: the aspirin example may take ~1 hour to compile.**
+(a) Modify the template `pes_shell_template.f90` and rename it to `pes_shell.f90`. The three key subroutines/functions need to be implemented are "pes_init()", "pot(x)", and "gradient(x)". An example for a PIP potential of aspirin is given. Then compile the program using the Makefile (with necessary modifications). **Warning: the aspirin example may take ~1 hour to compile.**
 
 (b) Run the executable. For the aspirin example
 ```bash
 ./vpt2.x aspirin.inp
 ```
          
-The input file `aspirin.inp` contains Cartesian coordinates of atoms in standard xyz format, in Angstrom. This executable not only computes QFF constants (written to XXX.out files) but also performs a normal VPT2 calculation, i.e., without considering any resonances. You may get negative (imaginary) frequencies for certain modes. To explicitly  treat resonances, copy XXX.out to step2 run DVPT2 and GVPT2, see below.
+The input file `aspirin.inp` contains Cartesian coordinates of atoms in standard xyz format, in Angstrom. This executable not only computes QFF constants (written to `XXX.out` files) but also performs a normal VPT2 calculation, i.e., without considering any resonances. You may get negative (imaginary) frequencies for certain modes. To explicitly  treat resonances, copy `XXX.out` to `step2` to run DVPT2+GVPT2, see below.
 
 ### (1B) MLPs written in Python: Get the QFF using Python-based MLP (folder step1_python):
 
