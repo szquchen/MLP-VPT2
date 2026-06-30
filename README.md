@@ -11,11 +11,11 @@ IR and Raman intensities.
 
 (1A) MLPs written in Fortran: Get the QFF using analytical gradients (folder step1_fortran)
 
-Modify the template pes_shell_template.f90 and rename it to pes_shell.f90. The three key subroutines/functions need to be implemented are pes_init(), pot(x), and gradient(x). An example for a PIP potential of aspirin is given. Then compile the program  using the Makefile (with necessary modifications).
+a. Modify the template pes_shell_template.f90 and rename it to pes_shell.f90. The three key subroutines/functions need to be implemented are pes_init(), pot(x), and gradient(x). An example for a PIP potential of aspirin is given. Then compile the program  using the Makefile (with necessary modifications).
          
-         Warning: the aspirin example may take ~1 hour to compile.
+Warning: the aspirin example may take ~1 hour to compile.
 
-    - Run the executable
+b. Run the executable
          ./vpt2.x {INPUT_FILE}
          
          For the aspirin example
