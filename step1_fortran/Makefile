@@ -2,6 +2,7 @@ FC := ifx -r8 -O
 LIBS := -qmkl=sequential
 
 OBJ := \
+constants.o \
 pes_basis.o  pes_shell.o \
 util_opt.o  util_paxis.o \
 util_nma.o  util_force.o \

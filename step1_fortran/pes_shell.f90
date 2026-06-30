@@ -1,21 +1,10 @@
 module pes_shell
+  use constants
   use pes_basis
   implicit none
 
   real(kind=8)::coef(49978)
 
-  ! Define the mass of different atoms
-  real(kind=8),parameter::c_mass= 12.0000000  !21874.66
-  real(kind=8),parameter::h_mass=  1.0078250  !1837.15
-  real(kind=8),parameter::d_mass=  2.0141018  !D
-  real(kind=8),parameter::o_mass= 15.9949146  !29156.95
-  real(kind=8),parameter::n_mass= 14.003074
-  real(kind=8),parameter::pi=3.14159265
-
-  ! Define constants
-  real(kind=8),parameter::emass=1822.88848
-  real(kind=8),parameter::auang=0.5291772083
-  real(kind=8),parameter::aucm=219474.6313710
 
 contains
   !==========================!
@@ -52,7 +41,7 @@ contains
     call get_x(xyz, morse)
     call evmono(morse, m)
     call evpoly(m, p)
-    pot = dot_product(coef, p) + 647.261324160815
+    pot = dot_product(coef, p)
 
     return
   end function
