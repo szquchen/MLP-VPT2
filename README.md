@@ -9,54 +9,35 @@ The first is to obtain the cubic and quartic force constants (2 options for this
 second step is to compute VPT2 energies for fundamentals, as well as
 IR and Raman intensities.
 
-(1A) MLPs written in Fortran: Get the QFF using analytical gradients
-     (folder step1_fortran):
+(1A) MLPs written in Fortran: Get the QFF using analytical gradients (folder step1_fortran):
 
-    1.1 Modify the template pes_shell_template.f90 and rename it to
-         pes_shell.f90. The three key subroutines/functions need to be
-         implemented are pes_init(), pot(x), and gradient(x). An example
-         for a PIP potential of aspirin is given. Then compile the program
-         using the Makefile (with necessary modifications).
+     (a) Modify the template pes_shell_template.f90 and rename it to pes_shell.f90. The three key subroutines/functions need to be implemented are pes_init(), pot(x), and gradient(x). An example for a PIP potential of aspirin is given. Then compile the program  using the Makefile (with necessary modifications).
+         
          Warning: the aspirin example may take ~1 hour to compile.
 
      (b) Run the executable
          ./vpt2.x {INPUT_FILE}
+         
          For the aspirin example
          ./vpt2.x aspirin.inp
-         The input file contains Cartesian coordinates of atoms in standard xyz
-         format, in Angstrom. 
-         This executable not only computes QFF constants (written to
-         XXX.out files) but also performs a normal VPT2
-         calculation, i.e., without considering any resonances. You may
-         get negative (imaginary) frequencies for certain modes. To explicitly
-         treat resonances, copy XXX.out to step2 run DVPT2 and GVPT2, see below.
+         
+         The input file contains Cartesian coordinates of atoms in standard xyz format, in Angstrom. This executable not only computes QFF constants (written to XXX.out files) but also performs a normal VPT2          calculation, i.e., without considering any resonances. You may get negative (imaginary) frequencies for certain modes. To explicitly  treat resonances, copy XXX.out to step2 run DVPT2 and GVPT2, see below.
 
-(1B) MLPs written in Python: Get the QFF using Python-based MLP,
-     (folder step1_python)
+(1B) MLPs written in Python: Get the QFF using Python-based MLP (folder step1_python):
 
-     (a) The sample force_const_hess.py has been set up to use MACE-OFF
-         (the 23 large model). You need to install MACE first.
-         To use other potential surface, modify
-         force_const_hess.py, particularly, the ASE calculator.
+     (a) The sample force_const_hess.py has been set up to use MACE-OFF (the 23 large model). You need to install MACE first. To use other potential surface, modify force_const_hess.py, particularly, the ASE calculator.
 
-     (b) Modify the script "run" to adjust the input arguments. The detailed
-         explanations for these arguments can be found at the beginning of
-         "main()" in force_const_hess.py
+     (b) Modify the script "run" to adjust the input arguments. The detailed explanations for these arguments can be found at the beginning of "main()" in force_const_hess.py
 
      (c) Then simply execute
          ./run
 
-(2) Run DVPT2+GVPT2 and (optionally) compute IR/Raman intensities in
-    folder step2:
+(2) Run DVPT2+GVPT2 and (optionally) compute IR/Raman intensities in folder step2:
 
-    Copy the XXX.out files from step1 to step2
-    Modify the script "run" to adjust the input arguments (explained at the
-    beginning of "main" in gvpt2.py. Then simply execute 
+    Copy the XXX.out files from step1 to step2 Modify the script "run" to adjust the input arguments (explained at the beginning of "main" in gvpt2.py. Then simply execute 
     ./run
-    If the "--enable_intensity" argument is present, the double harmonic
-    intensities of IR and Raman are calculated using MACE-MDP model for
-    dipole and polarizability. Otherwise, the intensity will be skipped
-    and only the energies of fundamental transitions are calculated.
+    
+    If the "--enable_intensity" argument is present, the double harmonic  intensities of IR and Raman are calculated using MACE-MDP model for dipole and polarizability. Otherwise, the intensity will be skipped and only the energies of fundamental transitions are calculated.
 
 ## Third-Party Software
 
