@@ -1,4 +1,6 @@
 *.o
 *.mod
 *.x
-*.out
+step1_fortran/*.out
+step1_python/*.out
+step2/*.out
