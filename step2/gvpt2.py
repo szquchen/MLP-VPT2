@@ -148,10 +148,31 @@ class Polyad:
 
     def solve(self) -> Dict[tuple, float]:
         self.build_hamiltonian()
-#        print("Successfully build Hamiltonian")
         evals, evecs = np.linalg.eigh(self.H)
-#        print(evals, evecs)
 
+        print("\n===================================================")
+        print("GVPT2 Polyad Prints Eigen values and vecs")
+        print("===================================================")
+
+        # Basis states in matrix order
+        basis_states = [None] * len(self.state_list_enum)
+        for state, idx in self.state_list_enum.items():
+            basis_states[idx] = state
+
+        print("Basis states:")
+        for i, st in enumerate(basis_states):
+            print(f"  {i}: {st}")
+
+        print("\nEigenvalues and CI coefficients:")
+        for root in range(len(evals)):
+            print(f"\nRoot {root+1}: {evals[root]:12.6f} cm^-1")
+            print(f"                    CI coef      coef**2")
+            for i, st in enumerate(basis_states):
+                coef = evecs[i, root]
+                print(f"   {st!s:12s}  {coef:10.6f}   {coef**2:10.6f}")
+#        print("GVPT2 Polyad Printing ends")
+        print("===================================================")
+         
         # Assign eigenvalues to “most-overlapping” basis state
         # inds = [np.argmax(vec) for vec in np.square(evecs.T)]
         # eval_dict = dict(zip(inds, evals))
